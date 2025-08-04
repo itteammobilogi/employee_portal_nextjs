@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.holiday-tile {
+  background: #ffe0e0 !important;
+  color: #b30000 !important;
+  border-radius: 8px;
+  font-weight: bold;
+}

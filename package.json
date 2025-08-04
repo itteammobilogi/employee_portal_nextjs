@@ -9,9 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.4",
+    "@react-pdf/renderer": "^4.3.0",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
+    "file-saver": "^2.0.5",
+    "framer-motion": "^12.19.2",
+    "geolib": "^3.3.4",
+    "html2canvas": "^1.4.1",
+    "js-cookie": "^3.0.5",
+    "jspdf": "^3.0.1",
+    "lucide-react": "^0.524.0",
+    "next": "15.3.4",
+    "prop-types": "^15.8.1",
     "react": "^19.0.0",
+    "react-big-calendar": "^1.19.4",
+    "react-calendar": "^6.0.0",
+    "react-csv": "^2.2.2",
     "react-dom": "^19.0.0",
-    "next": "15.3.4"
+    "react-hot-toast": "^2.5.2",
+    "react-webcam": "^7.2.0",
+    "recharts": "^3.0.2",
+    "swiper": "^11.2.9"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
