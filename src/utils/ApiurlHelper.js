@@ -1,6 +1,5 @@
 // src/utils/ApiurlHelper.js
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
+const BASE_URL = "https://portalapi.mobilogi.com";
 
 export async function postApi(endpoint, body) {
   const token = localStorage.getItem("token");
@@ -54,19 +53,19 @@ export async function postApi(endpoint, body) {
 
 export const getApi = async (endpoint) => {
   const token = localStorage.getItem("token");
-  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:5000";
+  const BASE_URL = "https://portalapi.mobilogi.com";
+
+  const headers = {};
+  if (token) headers.Authorization = `Bearer ${token}`;
 
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token && { Authorization: `Bearer ${token}` }),
-      },
+      headers,
     });
 
     const contentType = response.headers.get("Content-Type");
-    const rawText = await response.text(); // always read raw first
+    const rawText = await response.text();
 
     if (!response.ok) {
       let message = `Error ${response.status}: ${response.statusText}`;
@@ -75,12 +74,8 @@ export const getApi = async (endpoint) => {
       throw new Error(message);
     }
 
-    // Try to parse JSON if content-type is correct and response is not empty
     if (contentType?.includes("application/json")) {
-      if (rawText.trim() === "") {
-        return {}; // gracefully return empty object for empty responses
-      }
-      return JSON.parse(rawText); // ✅ safe parse
+      return rawText.trim() ? JSON.parse(rawText) : {};
     } else {
       throw new Error("Invalid JSON response received");
     }

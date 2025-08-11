@@ -80,7 +80,7 @@ export default function EmployeeDashboard() {
   const [isClockingOut, setIsClockingOut] = useState(false);
   const [mode, setMode] = useState("clockin");
   const [userId, setUserId] = useState(null);
-  const [shiftTiming, setShiftTiming] = useState(null);
+  // const [shiftTiming, setShiftTiming] = useState(null);
 
   const loadData = async () => {
     const token = localStorage.getItem("token");
@@ -169,24 +169,24 @@ export default function EmployeeDashboard() {
     setToday(formatted);
   };
 
-  useEffect(() => {
-    const fetchShiftTiming = async () => {
-      try {
-        const res = await getApi("/api/employee/shift-timing");
-        console.log(res, "shift data here");
+  // useEffect(() => {
+  //   const fetchShiftTiming = async () => {
+  //     try {
+  //       const res = await getApi("/api/employee/shift-timing");
+  //       console.log(res, "shift data here");
 
-        if (res?.data?.shift_start && res?.data?.shift_end) {
-          setShiftTiming(res.data);
-        } else {
-          setShiftTiming({ shift_start: "10:00", shift_end: "19:00" });
-        }
-      } catch (err) {
-        console.error("Failed to fetch shift timing:", err);
-      }
-    };
+  //       if (res?.data?.shift_start && res?.data?.shift_end) {
+  //         setShiftTiming(res.data);
+  //       } else {
+  //         setShiftTiming({ shift_start: "10:00", shift_end: "19:00" });
+  //       }
+  //     } catch (err) {
+  //       console.error("Failed to fetch shift timing:", err);
+  //     }
+  //   };
 
-    fetchShiftTiming();
-  }, []);
+  //   fetchShiftTiming();
+  // }, []);
 
   useEffect(() => {
     loadData();
@@ -365,7 +365,7 @@ export default function EmployeeDashboard() {
                 {today}
               </p>
             </div>
-            {shiftTiming && (
+            {/* {shiftTiming && (
               <div className="text-sm text-gray-700 mt-2 border border-indigo-100 rounded-md p-3 bg-indigo-50 w-fit">
                 <p className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-indigo-600" />
@@ -385,7 +385,7 @@ export default function EmployeeDashboard() {
                     </p>
                   )}
               </div>
-            )}
+            )} */}
 
             {/* Attendance Info or Button */}
             {attendance && attendance.clock_in ? (

@@ -17,6 +17,19 @@ export default function PayrollPage() {
   const [newSalary, setNewSalary] = useState("");
   const [reason, setReason] = useState("");
 
+  const num = (v) => {
+    const n = parseFloat(v);
+    return Number.isFinite(n) ? n : 0;
+  };
+  const fmtMoney = (v) => `₹${num(v).toFixed(2)}`;
+  const fmtMonth = (ym) => {
+    if (!ym) return "—";
+    const d = new Date(`${ym}-01T00:00:00Z`); // "2025-06" -> 1st of month
+    return isNaN(d)
+      ? ym
+      : d.toLocaleString("en-GB", { month: "short", year: "numeric" });
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -86,16 +99,14 @@ export default function PayrollPage() {
                       <td className="p-3">
                         {item.first_name} {item.last_name}
                       </td>
-                      <td className="p-3">{item.salary_month || "—"}</td>
+                      <td className="p-3">{fmtMonth(item.salary_month)}</td>
+                      <td className="p-3">{fmtMoney(item.base_salary)}</td>
+                      <td className="p-3">{fmtMoney(item.bonus)}</td>
                       <td className="p-3">
-                        ₹{(item.base_salary || 0).toFixed(2)}
-                      </td>
-                      <td className="p-3">₹{(item.bonus || 0).toFixed(2)}</td>
-                      <td className="p-3">
-                        ₹{(item.deduction || 0).toFixed(2)}
+                        {fmtMoney(item.deduction ?? item.other_deductions)}
                       </td>
                       <td className="p-3 font-semibold text-green-700">
-                        ₹{(item.total_salary || 0).toFixed(2)}
+                        {fmtMoney(item.total_salary ?? item.net_pay)}
                       </td>
                       <td className="p-3">
                         <button
@@ -105,7 +116,7 @@ export default function PayrollPage() {
                               id: item.employee_id,
                               first_name: item.first_name,
                               last_name: item.last_name,
-                              base_salary: item.base_salary,
+                              base_salary: num(item.base_salary), // ensure numeric
                             });
                             setShowModal(true);
                           }}
