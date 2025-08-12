@@ -14,7 +14,7 @@ export default function LoginPage() {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const res = await getApi("/api/auth/get/departments");
+        const res = await getApi("/auth/get/departments");
         setDepartments(res || []);
       } catch (err) {
         console.error("Error loading departments", err);
