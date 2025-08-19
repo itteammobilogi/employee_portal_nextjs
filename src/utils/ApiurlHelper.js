@@ -1,5 +1,5 @@
 // src/utils/ApiurlHelper.js
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://portalapi.mobilogi.com";
 
 export async function postApi(endpoint, body) {
   const token = localStorage.getItem("token");
