@@ -358,7 +358,7 @@ export default function EmployeeDashboard() {
             <div>
               <h2 className="flex items-center text-lg sm:text-xl font-semibold text-gray-800">
                 <User className="w-5 h-5 mr-2 text-indigo-500" />
-                Good {getGreeting()}, {profile.first_name} shaikh akbar
+                Good {getGreeting()}, {profile.first_name} shaikh akbar ahmed
               </h2>
               <p className="flex items-center text-sm text-gray-500 mt-1">
                 <Clock className="w-4 h-4 mr-1 text-gray-400" />
