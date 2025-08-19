@@ -228,7 +228,7 @@ export default function EmployeesPage() {
 
       {addEmployeeModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8">
+          <div className="relative w-[min(95vw,960px)] max-h-full overflow-y-auto rounded-2xl bg-white p-8 shadow-2xl">
             <h2 className="text-2xl font-semibold text-center mb-6">
               {editEmployee ? "Edit Employee" : "Add New Employee"}
             </h2>

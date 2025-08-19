@@ -1,49 +1,55 @@
-import React, { useState, useEffect } from "react";
+// CreatePayrollModal.jsx
+import { createPortal } from "react-dom";
 
-const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
-
+export default function CreatePayrollModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  employees = [],
+}) {
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm ">
-      <div className="bg-white rounded-xl w-full max-w-lg max-h-[95vh] overflow-y-auto shadow-xl p-6 relative animate-fade-in-up">
-        {/* Close Button */}
+  const modal = (
+    <div
+      className="fixed inset-0 z-[9999] flex h-full w-full items-center justify-center bg-black/50 backdrop-blur-sm"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose?.(); // close on backdrop click
+      }}
+      role="dialog"
+      aria-modal="true"
+    >
+      {/* Panel: no vh, just fill available height */}
+      <div
+        className="relative w-[min(95vw,760px)] max-h-full overflow-y-auto rounded-xl bg-white p-6 shadow-2xl"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+          className="absolute top-3 right-3 rounded-md p-2 text-gray-500 hover:bg-gray-100"
+          aria-label="Close"
+          title="Close"
         >
           ✕
         </button>
 
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">
+        <h2 className="mb-6 text-xl font-semibold text-gray-800">
           Create Payroll
         </h2>
 
         <form
           onSubmit={onSubmit}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-gray-700"
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 text-sm text-gray-700"
         >
           {/* Select Employee */}
-          <div className="col-span-2">
-            <label htmlFor="employee_id" className="font-medium block mb-1">
+          <div className="sm:col-span-2">
+            <label htmlFor="employee_id" className="mb-1 block font-medium">
               Select Employee <span className="text-red-500">*</span>
             </label>
             <select
               id="employee_id"
               name="employee_id"
               required
-              className="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">-- Choose Employee --</option>
               {employees.map((emp) => (
@@ -56,34 +62,34 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
 
           {/* Salary Month */}
           <div>
-            <label htmlFor="salary_month" className="font-medium block mb-1">
+            <label htmlFor="salary_month" className="mb-1 block font-medium">
               Salary Month <span className="text-red-500">*</span>
             </label>
             <input
               type="month"
               id="salary_month"
               name="salary_month"
-              className="border px-4 py-2 rounded-lg w-full"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
 
           {/* Payment Date */}
           <div>
-            <label htmlFor="payment_date" className="font-medium block mb-1">
+            <label htmlFor="payment_date" className="mb-1 block font-medium">
               Payment Date
             </label>
             <input
               type="date"
               id="payment_date"
               name="payment_date"
-              className="border px-4 py-2 rounded-lg w-full"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* Basic */}
           <div>
-            <label htmlFor="basic" className="font-medium block mb-1">
+            <label htmlFor="basic" className="mb-1 block font-medium">
               Basic
             </label>
             <input
@@ -91,27 +97,13 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
               id="basic"
               name="basic"
               placeholder="₹"
-              className="border px-4 py-2 rounded-lg w-full"
-            />
-          </div>
-
-          {/* HRA */}
-          <div>
-            <label htmlFor="hra" className="font-medium block mb-1">
-              HRA
-            </label>
-            <input
-              type="number"
-              id="hra"
-              name="hra"
-              placeholder="₹"
-              className="border px-4 py-2 rounded-lg w-full"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* Bonus */}
           <div>
-            <label htmlFor="bonus" className="font-medium block mb-1">
+            <label htmlFor="bonus" className="mb-1 block font-medium">
               Bonus
             </label>
             <input
@@ -119,13 +111,13 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
               id="bonus"
               name="bonus"
               placeholder="₹"
-              className="border px-4 py-2 rounded-lg w-full"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* Tax */}
           <div>
-            <label htmlFor="tax" className="font-medium block mb-1">
+            <label htmlFor="tax" className="mb-1 block font-medium">
               Tax
             </label>
             <input
@@ -133,13 +125,13 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
               id="tax"
               name="tax"
               placeholder="₹"
-              className="border px-4 py-2 rounded-lg w-full"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* PF */}
           <div>
-            <label htmlFor="pf" className="font-medium block mb-1">
+            <label htmlFor="pf" className="mb-1 block font-medium">
               PF
             </label>
             <input
@@ -147,7 +139,7 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
               id="pf"
               name="pf"
               placeholder="₹"
-              className="border px-4 py-2 rounded-lg w-full"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -155,7 +147,7 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
           <div>
             <label
               htmlFor="other_deductions"
-              className="font-medium block mb-1"
+              className="mb-1 block font-medium"
             >
               Other Deductions
             </label>
@@ -164,13 +156,13 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
               id="other_deductions"
               name="other_deductions"
               placeholder="₹"
-              className="border px-4 py-2 rounded-lg w-full"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* Notes */}
-          <div className="col-span-2">
-            <label htmlFor="notes" className="font-medium block mb-1">
+          <div className="sm:col-span-2">
+            <label htmlFor="notes" className="mb-1 block font-medium">
               Notes (Optional)
             </label>
             <textarea
@@ -178,15 +170,15 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
               name="notes"
               rows={3}
               placeholder="Any remarks or comments..."
-              className="border px-4 py-2 rounded-lg w-full"
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          {/* Submit Button */}
-          <div className="col-span-2">
+          {/* Submit */}
+          <div className="sm:col-span-2">
             <button
               type="submit"
-              className="w-full mt-2 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+              className="mt-2 w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
             >
               Submit Payroll
             </button>
@@ -195,6 +187,6 @@ const CreatePayrollModal = ({ isOpen, onClose, onSubmit, employees = [] }) => {
       </div>
     </div>
   );
-};
 
-export default CreatePayrollModal;
+  return createPortal(modal, document.body);
+}

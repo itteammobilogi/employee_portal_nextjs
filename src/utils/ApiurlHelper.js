@@ -1,5 +1,5 @@
 // src/utils/ApiurlHelper.js
-const BASE_URL = "https://portalapi.mobilogi.com";
+const BASE_URL = "http://localhost:5000";
 
 export async function postApi(endpoint, body) {
   const token = localStorage.getItem("token");
@@ -50,6 +50,78 @@ export async function postApi(endpoint, body) {
 // }
 
 // utils/ApiurlHelper.js
+
+// ApiurlHelper.js
+export const getAttendanceApi = async (
+  endpoint,
+  { timeoutMs = 20000 } = {}
+) => {
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+  // Allow env override in dev: NEXT_PUBLIC_API_BASE="http://localhost:5000"
+  const rawBase =
+    (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_API_BASE) ||
+    "https://portalapi.mobilogi.com";
+
+  // Ensure base ends with ONE slash
+  const BASE_URL = rawBase.replace(/\/+$/, "") + "/";
+
+  // Ensure endpoint has NO leading slash
+  const path = String(endpoint || "").replace(/^\/+/, "");
+
+  const url = BASE_URL + path;
+
+  const headers = { Accept: "application/json" };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers,
+      signal: ac.signal,
+    });
+
+    const contentType = response.headers.get("Content-Type") || "";
+    const rawText = await response.text();
+
+    if (!response.ok) {
+      let message = `Error ${response.status}: ${response.statusText}`;
+      if (response.status === 404) message = "Route not found (404)";
+      console.error("[API]", message, { url, body: rawText });
+      throw new Error(message);
+    }
+
+    if (contentType.includes("application/json")) {
+      return rawText.trim() ? JSON.parse(rawText) : {};
+    }
+    throw new Error("Invalid JSON response received");
+  } catch (err) {
+    // Friendlier network errors
+    const msg = String(err?.message || err);
+    if (
+      msg.includes("Failed to fetch") ||
+      msg.includes("Name not resolved") ||
+      msg.includes("ERR_NAME_NOT_RESOLVED")
+    ) {
+      console.error("[API] Network/DNS error for:", url);
+      throw new Error(
+        "Network error: unable to reach API (check domain/DNS, CORS, or connectivity)."
+      );
+    }
+    if (msg.includes("aborted")) {
+      console.error("[API] Request timed out:", url);
+      throw new Error("Request timed out. Please try again.");
+    }
+    console.error("[API] getApi failed:", msg, { url });
+    throw err;
+  } finally {
+    clearTimeout(t);
+  }
+};
 
 export const getApi = async (endpoint) => {
   const token = localStorage.getItem("token");
