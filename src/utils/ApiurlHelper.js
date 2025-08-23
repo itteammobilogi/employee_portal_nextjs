@@ -1,5 +1,5 @@
 // src/utils/ApiurlHelper.js
-const BASE_URL = "https://portalapi.mobilogi.com";
+const BASE_URL = "http://localhost:5000";
 
 export async function postApi(endpoint, body) {
   const token = localStorage.getItem("token");
@@ -62,7 +62,7 @@ export const getAttendanceApi = async (
   // Allow env override in dev: NEXT_PUBLIC_API_BASE="http://localhost:5000"
   const rawBase =
     (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_API_BASE) ||
-    "https://portalapi.mobilogi.com";
+    "http://localhost:5000";
 
   // Ensure base ends with ONE slash
   const BASE_URL = rawBase.replace(/\/+$/, "") + "/";
@@ -125,7 +125,7 @@ export const getAttendanceApi = async (
 
 export const getApi = async (endpoint) => {
   const token = localStorage.getItem("token");
-  const BASE_URL = "https://portalapi.mobilogi.com";
+  const BASE_URL = "http://localhost:5000";
 
   const headers = {};
   if (token) headers.Authorization = `Bearer ${token}`;

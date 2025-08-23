@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DashboardLayout from "@/component/layout/DashboardLayout";
 import { deleteApi, getApi, postApi, putApi } from "@/utils/ApiurlHelper";
 import toast from "react-hot-toast";
@@ -48,30 +48,58 @@ export default function EmployeesPage() {
   const [addEmployeeModal, setAddEmployeeModal] = useState(false);
   const [editEmployee, setEditEmployee] = useState(null);
   const [newEmployee, setNewEmployee] = useState(defaultEmployee);
+  const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState("");
 
-  const fetchEmployees = async () => {
-    try {
-      setLoading(true);
-      const data = await getApi(
-        `/api/admin/getall/employees?page=${page}&limit=${limit}`
-      );
+  const fetchEmployees = useCallback(
+    async (signal) => {
+      try {
+        setLoading(true);
 
-      if (data?.employees && data?.totalPages !== undefined) {
-        setEmployees(data.employees);
-        setTotalPages(data.totalPages);
-      } else {
-        console.error("Unexpected response format", data);
+        const params = new URLSearchParams({
+          page: String(page),
+          limit: String(limit),
+          search: search, // no need to pre-encode; we use URLSearchParams
+        });
+
+        const data = await getApi(
+          `/api/admin/getall/employees?${params.toString()}`,
+          { signal }
+        );
+
+        if (!signal.aborted) {
+          if (data?.employees && data?.totalPages !== undefined) {
+            setEmployees(data.employees);
+            setTotalPages(data.totalPages);
+          } else {
+            console.error("Unexpected response format", data);
+          }
+        }
+      } catch (err) {
+        if (err?.name !== "AbortError") {
+          console.error("Error fetching employees:", err);
+        }
+      } finally {
+        if (!signal.aborted) setLoading(false);
       }
-    } catch (err) {
-      console.error("Error fetching employees:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [page, limit, search]
+  );
 
   useEffect(() => {
-    fetchEmployees();
-  }, [page]);
+    const ac = new AbortController();
+    fetchEmployees(ac.signal);
+    return () => ac.abort(); // cancel previous in-flight request
+  }, [fetchEmployees]);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      // move to page 1 *then* set the debounced search — same tick
+      setPage(1);
+      setSearch(searchInput.trim());
+    }, 400);
+    return () => clearTimeout(t);
+  }, [searchInput]);
 
   const handleCreateOrUpdateEmployee = async () => {
     try {
@@ -120,6 +148,15 @@ export default function EmployeesPage() {
           >
             + Add Employee
           </button>
+        </div>
+        <div className="flex items-center justify-between mb-4">
+          <input
+            type="text"
+            placeholder="Search employees..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="border border-gray-300 rounded-lg px-4 py-2 text-sm w-64"
+          />
         </div>
 
         {loading ? (
@@ -234,96 +271,174 @@ export default function EmployeesPage() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
-                placeholder="First Name"
-                value={newEmployee.first_name}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, first_name: e.target.value })
-                }
-              />
-              <input
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
-                placeholder="Last Name"
-                value={newEmployee.last_name}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, last_name: e.target.value })
-                }
-              />
-              <input
-                type="email"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
-                placeholder="Email"
-                value={newEmployee.email}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, email: e.target.value })
-                }
-              />
-              <input
-                type="password"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
-                placeholder="Password"
-                value={newEmployee.password}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, password: e.target.value })
-                }
-              />
-              <input
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
-                placeholder="Phone"
-                value={newEmployee.phone}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, phone: e.target.value })
-                }
-              />
-              <input
-                type="date"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm"
-                value={newEmployee.dob}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, dob: e.target.value })
-                }
-              />
-              <select
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm"
-                value={newEmployee.gender}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, gender: e.target.value })
-                }
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-              <input
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
-                placeholder="Address"
-                value={newEmployee.address}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, address: e.target.value })
-                }
-              />
-              <input
-                type="date"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm"
-                value={newEmployee.date_of_joining}
-                onChange={(e) =>
-                  setNewEmployee({
-                    ...newEmployee,
-                    date_of_joining: e.target.value,
-                  })
-                }
-              />
-              <input
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
-                placeholder="Designation"
-                value={newEmployee.designation}
-                onChange={(e) =>
-                  setNewEmployee({
-                    ...newEmployee,
-                    designation: e.target.value,
-                  })
-                }
-              />
+              {/* First Name */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  First Name
+                </label>
+                <input
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
+                  placeholder="First Name"
+                  value={newEmployee.first_name}
+                  onChange={(e) =>
+                    setNewEmployee({
+                      ...newEmployee,
+                      first_name: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              {/* Last Name */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Last Name
+                </label>
+                <input
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
+                  placeholder="Last Name"
+                  value={newEmployee.last_name}
+                  onChange={(e) =>
+                    setNewEmployee({
+                      ...newEmployee,
+                      last_name: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
+                  placeholder="Email"
+                  value={newEmployee.email}
+                  onChange={(e) =>
+                    setNewEmployee({ ...newEmployee, email: e.target.value })
+                  }
+                />
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
+                  placeholder="Password"
+                  value={newEmployee.password}
+                  onChange={(e) =>
+                    setNewEmployee({ ...newEmployee, password: e.target.value })
+                  }
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Phone
+                </label>
+                <input
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
+                  placeholder="Phone"
+                  value={newEmployee.phone}
+                  onChange={(e) =>
+                    setNewEmployee({ ...newEmployee, phone: e.target.value })
+                  }
+                />
+              </div>
+
+              {/* DOB */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm"
+                  value={newEmployee.dob}
+                  onChange={(e) =>
+                    setNewEmployee({ ...newEmployee, dob: e.target.value })
+                  }
+                />
+              </div>
+
+              {/* Gender */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Gender
+                </label>
+                <select
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm"
+                  value={newEmployee.gender}
+                  onChange={(e) =>
+                    setNewEmployee({ ...newEmployee, gender: e.target.value })
+                  }
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+
+              {/* Address */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Address
+                </label>
+                <input
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
+                  placeholder="Address"
+                  value={newEmployee.address}
+                  onChange={(e) =>
+                    setNewEmployee({ ...newEmployee, address: e.target.value })
+                  }
+                />
+              </div>
+
+              {/* Date of Joining */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Date of Joining
+                </label>
+                <input
+                  type="date"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm"
+                  value={newEmployee.date_of_joining}
+                  onChange={(e) =>
+                    setNewEmployee({
+                      ...newEmployee,
+                      date_of_joining: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              {/* Designation */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Designation
+                </label>
+                <input
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm placeholder-gray-500"
+                  placeholder="Designation"
+                  value={newEmployee.designation}
+                  onChange={(e) =>
+                    setNewEmployee({
+                      ...newEmployee,
+                      designation: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              {/* Role */}
               <div className="w-full">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Role
@@ -347,6 +462,8 @@ export default function EmployeesPage() {
                   ))}
                 </div>
               </div>
+
+              {/* Department */}
               <div className="w-full mt-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Department
@@ -373,7 +490,8 @@ export default function EmployeesPage() {
                   ))}
                 </div>
               </div>
-              {/* Profile Photo Upload */}
+
+              {/* Profile Photo */}
               <div className="w-full flex flex-col items-start">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Profile Photo

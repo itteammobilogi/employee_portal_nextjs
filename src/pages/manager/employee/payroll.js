@@ -67,6 +67,13 @@ export default function PayrollPage() {
     }
   };
 
+  useEffect(() => {
+    if (showModal && selectedEmployee) {
+      setNewSalary("");
+      setReason("");
+    }
+  }, [showModal, selectedEmployee]);
+
   return (
     <DashboardLayout>
       <main className="p-6">

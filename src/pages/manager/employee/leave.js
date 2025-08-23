@@ -33,6 +33,19 @@ function leave() {
     })();
   }, []);
 
+  const fetchLeaves = async () => {
+    try {
+      const res = await getApi("/api/manager/leave/requests");
+      if (res?.leaveRequests) {
+        setLeaves(res.leaveRequests);
+      } else {
+        setLeaves([]);
+      }
+    } catch (err) {
+      console.error("Failed to reload leaves:", err);
+    }
+  };
+
   const updateLeaveStatus = async (leaveId, status, reason = "") => {
     try {
       setLoadingId(leaveId);
@@ -40,10 +53,14 @@ function leave() {
         status,
         reason,
       });
+
       toast.success(res.message);
+
+      // 🔥 Re-fetch fresh data from API
+      await fetchLeaves();
     } catch (err) {
       console.error("Update Leave Error:", err);
-      // toast.error(err.message || "Action failed, please try again.");
+      toast.error(err.message || "Action failed, please try again.");
     } finally {
       setLoadingId(null);
     }

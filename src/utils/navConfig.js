@@ -39,7 +39,7 @@ export const navConfig = {
       { label: "Team", path: "/manager/team" },
       { label: "Employee Leave", path: "/manager/employee/leave" },
       { label: "Payroll", path: "/manager/employee/payroll" },
-      { label: "Holiday", path: "/manager/holiday" },
+      // { label: "Holiday", path: "/manager/holiday" },
       { label: "Expenses", path: "/manager/expense" },
     ],
   },

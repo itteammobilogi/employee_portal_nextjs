@@ -1,4 +1,3 @@
-// CreatePayrollModal.jsx
 import { createPortal } from "react-dom";
 
 export default function CreatePayrollModal({
@@ -6,19 +5,28 @@ export default function CreatePayrollModal({
   onClose,
   onSubmit,
   employees = [],
+  mode = "create", // "create" | "edit"
+  initial = null, // payroll row when editing
 }) {
   if (!isOpen) return null;
+
+  const i = initial || {};
+  const title = mode === "edit" ? "Edit Payroll" : "Create Payroll";
+  const submitText = mode === "edit" ? "Update Payroll" : "Submit Payroll";
+
+  // helper to format existing month/date
+  const monthVal = i.salary_month || "";
+  const dateVal = i.payment_date || "";
 
   const modal = (
     <div
       className="fixed inset-0 z-[9999] flex h-full w-full items-center justify-center bg-black/50 backdrop-blur-sm"
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose?.(); // close on backdrop click
+        if (e.target === e.currentTarget) onClose?.();
       }}
       role="dialog"
       aria-modal="true"
     >
-      {/* Panel: no vh, just fill available height */}
       <div
         className="relative w-[min(95vw,760px)] max-h-full overflow-y-auto rounded-xl bg-white p-6 shadow-2xl"
         onMouseDown={(e) => e.stopPropagation()}
@@ -32,15 +40,13 @@ export default function CreatePayrollModal({
           ✕
         </button>
 
-        <h2 className="mb-6 text-xl font-semibold text-gray-800">
-          Create Payroll
-        </h2>
+        <h2 className="mb-6 text-xl font-semibold text-gray-800">{title}</h2>
 
         <form
           onSubmit={onSubmit}
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 text-sm text-gray-700"
         >
-          {/* Select Employee */}
+          {/* Employee */}
           <div className="sm:col-span-2">
             <label htmlFor="employee_id" className="mb-1 block font-medium">
               Select Employee <span className="text-red-500">*</span>
@@ -49,6 +55,7 @@ export default function CreatePayrollModal({
               id="employee_id"
               name="employee_id"
               required
+              defaultValue={i.employee_id ?? ""}
               className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">-- Choose Employee --</option>
@@ -60,7 +67,7 @@ export default function CreatePayrollModal({
             </select>
           </div>
 
-          {/* Salary Month */}
+          {/* Month */}
           <div>
             <label htmlFor="salary_month" className="mb-1 block font-medium">
               Salary Month <span className="text-red-500">*</span>
@@ -69,12 +76,13 @@ export default function CreatePayrollModal({
               type="month"
               id="salary_month"
               name="salary_month"
-              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
+              defaultValue={monthVal}
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          {/* Payment Date */}
+          {/* Payment date */}
           <div>
             <label htmlFor="payment_date" className="mb-1 block font-medium">
               Payment Date
@@ -83,6 +91,7 @@ export default function CreatePayrollModal({
               type="date"
               id="payment_date"
               name="payment_date"
+              defaultValue={dateVal}
               className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -94,9 +103,29 @@ export default function CreatePayrollModal({
             </label>
             <input
               type="number"
+              step="0.01"
+              min="0"
               id="basic"
               name="basic"
               placeholder="₹"
+              defaultValue={i.basic ?? ""}
+              className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* HRA (was missing) */}
+          <div>
+            <label htmlFor="hra" className="mb-1 block font-medium">
+              HRA
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              id="hra"
+              name="hra"
+              placeholder="₹"
+              defaultValue={i.hra ?? ""}
               className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -108,9 +137,12 @@ export default function CreatePayrollModal({
             </label>
             <input
               type="number"
+              step="0.01"
+              min="0"
               id="bonus"
               name="bonus"
               placeholder="₹"
+              defaultValue={i.bonus ?? ""}
               className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -122,9 +154,12 @@ export default function CreatePayrollModal({
             </label>
             <input
               type="number"
+              step="0.01"
+              min="0"
               id="tax"
               name="tax"
               placeholder="₹"
+              defaultValue={i.tax ?? ""}
               className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -136,14 +171,17 @@ export default function CreatePayrollModal({
             </label>
             <input
               type="number"
+              step="0.01"
+              min="0"
               id="pf"
               name="pf"
               placeholder="₹"
+              defaultValue={i.pf ?? ""}
               className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          {/* Other Deductions */}
+          {/* Other deductions */}
           <div>
             <label
               htmlFor="other_deductions"
@@ -153,9 +191,12 @@ export default function CreatePayrollModal({
             </label>
             <input
               type="number"
+              step="0.01"
+              min="0"
               id="other_deductions"
               name="other_deductions"
               placeholder="₹"
+              defaultValue={i.other_deductions ?? ""}
               className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -170,6 +211,7 @@ export default function CreatePayrollModal({
               name="notes"
               rows={3}
               placeholder="Any remarks or comments..."
+              defaultValue={i.notes ?? ""}
               className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -180,7 +222,7 @@ export default function CreatePayrollModal({
               type="submit"
               className="mt-2 w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
             >
-              Submit Payroll
+              {submitText}
             </button>
           </div>
         </form>

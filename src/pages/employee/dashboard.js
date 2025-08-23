@@ -358,7 +358,7 @@ export default function EmployeeDashboard() {
             <div>
               <h2 className="flex items-center text-lg sm:text-xl font-semibold text-gray-800">
                 <User className="w-5 h-5 mr-2 text-indigo-500" />
-                Good {getGreeting()}, {profile.first_name} test zaid
+                Good {getGreeting()}, {profile.first_name}
               </h2>
               <p className="flex items-center text-sm text-gray-500 mt-1">
                 <Clock className="w-4 h-4 mr-1 text-gray-400" />
@@ -637,15 +637,17 @@ export default function EmployeeDashboard() {
           </div>
         </div>
 
-        <div className="text-right mt-4">
+        <div className="text-right mt-6">
           <a
-            href="/employee/directory"
-            className="text-sm mb-5 text-blue-600 underline hover:text-blue-800 inline-flex items-center gap-1"
+            href="/employee/attendance"
+            className="relative inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 bg-white/60 backdrop-blur-sm border border-blue-200 rounded-xl shadow-sm hover:shadow-lg hover:bg-blue-50 hover:text-blue-800 transition-all duration-300"
           >
-            <Phone className="w-4 h-4" />
-            View Employee Directory
+            <CalendarDays className="w-4 h-4" />
+            View Attendance History
+            <span className="absolute -right-2 -top-2 w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
           </a>
         </div>
+
         <div>
           <WebcamModal
             isOpen={showWebcam}

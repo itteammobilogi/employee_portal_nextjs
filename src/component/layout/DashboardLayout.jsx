@@ -133,6 +133,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Menu, X, LogOut } from "lucide-react";
 import { navConfig } from "@/utils/navConfig";
+import Image from "next/image";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -170,7 +171,7 @@ export default function DashboardLayout({ children }) {
   }, []);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gradient-to-br from-[#dbeafe] via-[#f0f9ff] to-[#ffffff]">
+    <div className="flex min-h-screen overflow-y-hidden overflow-x-visible bg-gradient-to-br from-[#dbeafe] via-[#f0f9ff] to-[#ffffff]">
       {/* Sidebar */}
       <aside
         className={`${
@@ -178,8 +179,17 @@ export default function DashboardLayout({ children }) {
         } fixed md:static top-0 left-0 h-full w-64 z-40 transition-all duration-500 md:block bg-white rounded-tr-3xl rounded-br-3xl shadow-[rgba(0,_0,_0,_0.1)_0px_4px_12px]`}
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between px-6 py-5 border-b text-xl font-bold text-blue-700">
-            {roleName.charAt(0).toUpperCase() + roleName.slice(1)} Panel
+          <div className="flex items-center justify-between px-6 py-5 border-b">
+            <Image
+              src="/mobilogi-logo.png"
+              alt="Company Logo"
+              width={140}
+              height={36}
+              priority
+              className="h-9 w-auto object-contain invert"
+            />
+
+            {/* Close button */}
             <button
               className="md:hidden text-blue-500"
               onClick={() => setSidebarOpen(false)}
@@ -187,6 +197,7 @@ export default function DashboardLayout({ children }) {
               <X size={20} />
             </button>
           </div>
+
           <nav className="px-4 py-6 space-y-3">
             {navLinks.map((link) => (
               <button
@@ -218,7 +229,7 @@ export default function DashboardLayout({ children }) {
       </aside>
 
       {/* Main Area */}
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 min-w-0">
         {/* Topbar */}
         <header className="sticky top-0 z-30 bg-white/70 backdrop-blur-md shadow-lg p-4 mx-4 mt-4 rounded-2xl flex items-center justify-between border border-blue-100">
           <div className="flex items-center gap-3">
@@ -251,7 +262,7 @@ export default function DashboardLayout({ children }) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-6 md:p-8 bg-white/70 m-4 mt-6 rounded-2xl shadow-md backdrop-blur-md">
+        <main className="flex-1 min-w-0 overflow-y-auto p-6 md:p-8 bg-white/70 m-4 mt-6 rounded-2xl shadow-md backdrop-blur-md">
           {children}
         </main>
       </div>
