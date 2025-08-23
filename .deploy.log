@@ -1,0 +1,499 @@
+
+=== [2025-08-19 07:59:01] Starting deploy ===
+[deploy] APP_DIR=/var/www/html/employee_portal_nextjs/employee_portal_nextjs  BRANCH=main  PM2_ID=21  PM2_NAME=employee_portal_nextjs
+[deploy] Fetching latest code...
+[deploy] Resetting to origin/main...
+HEAD is now at 878d28e fix: valid React component names for change-password & id-card
+[deploy] Installing dependencies (npm ci)...
+
+added 236 packages, and audited 237 packages in 6s
+
+28 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[deploy] Building app...
+
+> dashboard@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.4
+   - Environments: .env.production
+
+   Linting and checking validity of types ...
+   Creating an optimized production build ...
+Failed to compile.
+
+./src/pages/employee/change-password.js
+Error:   [31mx[0m Expected '(', got '-'
+   ,-[[36;1;4m/var/www/html/employee_portal_nextjs/employee_portal_nextjs/src/pages/employee/change-password.js[0m:3:1]
+ [2m1[0m | import React from 'react'
+ [2m2[0m | 
+ [2m3[0m | function change-password() {
+   : [35;1m               ^[0m
+ [2m4[0m |   return (
+ [2m5[0m |     <div>change-password</div>
+ [2m6[0m |   )
+   `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/pages/employee/change-password.js
+
+./src/pages/employee/id-card.js
+Error:   [31mx[0m Expected '(', got '-'
+   ,-[[36;1;4m/var/www/html/employee_portal_nextjs/employee_portal_nextjs/src/pages/employee/id-card.js[0m:3:1]
+ [2m1[0m | import React from 'react'
+ [2m2[0m | 
+ [2m3[0m | function id-card() {
+   : [35;1m           ^[0m
+ [2m4[0m |   return (
+ [2m5[0m |     <div>id-card</div>
+ [2m6[0m |   )
+   `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/pages/employee/id-card.js
+
+
+> Build failed because of webpack errors
+
+=== [2025-08-19 08:05:44] Starting deploy ===
+[deploy] APP_DIR=/var/www/html/employee_portal_nextjs/employee_portal_nextjs  BRANCH=main  PM2_ID=21  PM2_NAME=employee_portal_nextjs
+[deploy] Fetching latest code...
+From https://github.com/itteammobilogi/employee_portal_nextjs
+   878d28e..6e86485  main       -> origin/main
+[deploy] Resetting to origin/main...
+HEAD is now at 6e86485 removing component
+[deploy] Installing dependencies (npm ci)...
+
+added 236 packages, and audited 237 packages in 6s
+
+28 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[deploy] Building app...
+
+> dashboard@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.4
+   - Environments: .env.production
+
+   Linting and checking validity of types ...
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1000ms
+   Collecting page data ...
+   Generating static pages (0/39) ...
+   Generating static pages (9/39) 
+   Generating static pages (19/39) 
+   Generating static pages (29/39) 
+ ✓ Generating static pages (39/39)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (pages)                                Size  First Load JS
+┌ ○ /                                     5.49 kB         104 kB
+├   └ css/f30152c0704fba31.css              608 B
+├   /_app                                     0 B        98.5 kB
+├ ○ /404                                    195 B        98.7 kB
+├ ○ /admin/attendance                      5.9 kB         104 kB
+├ ○ /admin/attendance/employee/[id]       10.9 kB         112 kB
+├ ○ /admin/dashboard (307 ms)              104 kB         213 kB
+├ ○ /admin/employees                       5.1 kB         104 kB
+├ ○ /admin/employees/salary               4.06 kB         103 kB
+├ ○ /admin/finance/dashboard              2.67 kB         101 kB
+├ ○ /admin/holiday                          285 B        98.8 kB
+├ ○ /admin/holiday/holiday (458 ms)       13.2 kB         112 kB
+├   └ css/72313199b7132b63.css              752 B
+├ ○ /admin/leaves/leave                   3.87 kB         102 kB
+├ ○ /admin/payroll                        4.03 kB         105 kB
+├ ○ /admin/payroll/payroll                  287 B        98.8 kB
+├ ƒ /api/hello                                0 B        98.5 kB
+├ ○ /employee/attendance                    287 B        98.8 kB
+├ ○ /employee/changePassword                295 B        98.8 kB
+├ ○ /employee/dashboard                   16.1 kB         115 kB
+├ ○ /employee/directory                   1.18 kB         103 kB
+├ ○ /employee/expenses                    4.18 kB         122 kB
+├ ○ /employee/holidays                      287 B        98.8 kB
+├ ○ /employee/idCard                        288 B        98.8 kB
+├ ○ /employee/leaves                      4.58 kB         103 kB
+├ ○ /employee/payroll (466 ms)            5.77 kB         595 kB
+├ ○ /employee/performance                   287 B        98.8 kB
+├ ○ /employee/profile                     1.59 kB         103 kB
+├ ○ /finance/dashboard (466 ms)            161 kB         752 kB
+├ ○ /hr/dashboard                         4.83 kB         103 kB
+├ ○ /hr/employees                         3.57 kB         102 kB
+├ ○ /hr/leaves                            2.67 kB         101 kB
+├ ○ /login (466 ms)                       2.55 kB         137 kB
+├ ○ /logout                                 999 B        99.5 kB
+├ ○ /manager/dashboard                    4.64 kB         103 kB
+├ ○ /manager/employee/leave               4.47 kB         103 kB
+├ ○ /manager/employee/payroll             4.94 kB         139 kB
+├ ○ /manager/expense                      4.12 kB         122 kB
+├ ○ /manager/holiday                      2.67 kB         101 kB
+├ ○ /manager/leaves                         284 B        98.8 kB
+├ ○ /manager/reviews                      3.15 kB         104 kB
+└ ○ /manager/team                         5.29 kB         106 kB
++ First Load JS shared by all              107 kB
+  ├ chunks/framework-d33e0fe36067854f.js  57.7 kB
+  ├ chunks/main-2c8c0b1013a5befa.js       34.2 kB
+  └ other shared chunks (total)           15.1 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+[deploy] Restarting with PM2...
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [21](ids: [ '21' ])
+[PM2] [employee_portal_nextjs](21) ✓
+┌────┬───────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 9  │ -sosInternationalAPI      │ default     │ 1.0.0   │ fork    │ 4059715  │ 27D    │ 318  │ online    │ 0%       │ 77.2mb   │ root     │ disabled │
+│ 1  │ alakbar_node              │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 4  │ alakbar_ondc_node         │ default     │ 1.0.0   │ fork    │ 3096744  │ 2M     │ 25   │ online    │ 0%       │ 87.3mb   │ root     │ disabled │
+│ 12 │ bysuktowordpress          │ default     │ N/A     │ fork    │ 313415   │ 11D    │ 0    │ online    │ 0%       │ 65.0mb   │ root     │ disabled │
+│ 10 │ employee-portal-node      │ default     │ 1.0.0   │ fork    │ 433709   │ 6D     │ 72   │ online    │ 0%       │ 112.4mb  │ root     │ disabled │
+│ 21 │ employee_portal_nextjs    │ default     │ 15.3.4  │ fork    │ 697767   │ 0s     │ 153  │ online    │ 0%       │ 17.3mb   │ root     │ disabled │
+│ 2  │ index                     │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 3  │ index                     │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 8  │ nextjs-app                │ default     │ 15.3.3  │ fork    │ 3109477  │ 2M     │ 45   │ online    │ 0%       │ 131.1mb  │ root     │ disabled │
+│ 5  │ ondc_frontend             │ default     │ N/A     │ fork    │ 2582942  │ 3M     │ 38   │ online    │ 0%       │ 72.2mb   │ root     │ disabled │
+│ 0  │ sms_api                   │ default     │ 1.0.0   │ fork    │ 2840739  │ 2M     │ 1    │ online    │ 0%       │ 77.1mb   │ root     │ disabled │
+│ 23 │ wordpresstextremover      │ default     │ N/A     │ fork    │ 439378   │ 6D     │ 4    │ online    │ 0%       │ 5.1gb    │ root     │ disabled │
+└────┴───────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2] Saving current process list...
+[PM2] Successfully saved in /root/.pm2/dump.pm2
+=== [2025-08-19 08:06:07] Deploy complete ===
+
+=== [2025-08-19 08:13:30] Starting deploy ===
+[deploy] APP_DIR=/var/www/html/employee_portal_nextjs/employee_portal_nextjs  BRANCH=main  PM2_ID=21  PM2_NAME=employee_portal_nextjs
+[deploy] Fetching latest code...
+From https://github.com/itteammobilogi/employee_portal_nextjs
+   6e86485..1def656  main       -> origin/main
+[deploy] Resetting to origin/main...
+HEAD is now at 1def656 changes
+[deploy] Installing dependencies (npm ci)...
+
+added 236 packages, and audited 237 packages in 6s
+
+28 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[deploy] Building app...
+
+> dashboard@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.4
+   - Environments: .env.production
+
+   Linting and checking validity of types ...
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 3.0s
+   Collecting page data ...
+   Generating static pages (0/39) ...
+   Generating static pages (9/39) 
+   Generating static pages (19/39) 
+   Generating static pages (29/39) 
+ ✓ Generating static pages (39/39)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (pages)                                Size  First Load JS
+┌ ○ /                                       319 B        98.8 kB
+├   /_app                                     0 B        98.5 kB
+├ ○ /404                                    195 B        98.7 kB
+├ ○ /admin/attendance                     6.37 kB         105 kB
+├ ○ /admin/attendance/employee/[id]       10.9 kB         112 kB
+├ ○ /admin/dashboard (340 ms)              104 kB         213 kB
+├ ○ /admin/employees                       5.6 kB         104 kB
+├ ○ /admin/employees/salary               4.53 kB         103 kB
+├ ○ /admin/finance/dashboard              2.67 kB         101 kB
+├ ○ /admin/holiday                          285 B        98.8 kB
+├ ○ /admin/holiday/holiday (474 ms)       13.7 kB         112 kB
+├   └ css/72313199b7132b63.css              752 B
+├ ○ /admin/leaves/leave                   4.34 kB         103 kB
+├ ○ /admin/payroll                        4.13 kB         105 kB
+├ ○ /admin/payroll/payroll                  287 B        98.8 kB
+├ ƒ /api/hello                                0 B        98.5 kB
+├ ○ /employee/attendance                  5.29 kB         104 kB
+├ ○ /employee/changePassword                295 B        98.8 kB
+├ ○ /employee/dashboard                   16.6 kB         115 kB
+├ ○ /employee/directory                   1.18 kB         103 kB
+├ ○ /employee/expenses                    4.65 kB         122 kB
+├ ○ /employee/holidays                      287 B        98.8 kB
+├ ○ /employee/idCard                        288 B        98.8 kB
+├ ○ /employee/leaves                      5.05 kB         104 kB
+├ ○ /employee/payroll (480 ms)            6.25 kB         596 kB
+├ ○ /employee/performance                   287 B        98.8 kB
+├ ○ /employee/profile                      1.6 kB         104 kB
+├ ○ /finance/dashboard (479 ms)            161 kB         753 kB
+├ ○ /hr/dashboard                          5.3 kB         104 kB
+├ ○ /hr/employees                         4.05 kB         103 kB
+├ ○ /hr/leaves                            2.67 kB         101 kB
+├ ○ /login                                3.04 kB         137 kB
+├ ○ /logout                                 999 B        99.5 kB
+├ ○ /manager/dashboard                    5.11 kB         104 kB
+├ ○ /manager/employee/leave               4.93 kB         103 kB
+├ ○ /manager/employee/payroll (480 ms)    5.41 kB         140 kB
+├ ○ /manager/expense                       4.6 kB         122 kB
+├ ○ /manager/holiday                      2.67 kB         101 kB
+├ ○ /manager/leaves                         284 B        98.8 kB
+├ ○ /manager/reviews                      3.15 kB         104 kB
+└ ○ /manager/team                         5.87 kB         107 kB
++ First Load JS shared by all              107 kB
+  ├ chunks/framework-d33e0fe36067854f.js  57.7 kB
+  ├ chunks/main-2c8c0b1013a5befa.js       34.2 kB
+  └ other shared chunks (total)           14.8 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+[deploy] Restarting with PM2...
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [21](ids: [ '21' ])
+[PM2] [employee_portal_nextjs](21) ✓
+┌────┬───────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 9  │ -sosInternationalAPI      │ default     │ 1.0.0   │ fork    │ 4059715  │ 27D    │ 318  │ online    │ 0%       │ 77.3mb   │ root     │ disabled │
+│ 1  │ alakbar_node              │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 4  │ alakbar_ondc_node         │ default     │ 1.0.0   │ fork    │ 3096744  │ 2M     │ 25   │ online    │ 0%       │ 87.0mb   │ root     │ disabled │
+│ 12 │ bysuktowordpress          │ default     │ N/A     │ fork    │ 313415   │ 11D    │ 0    │ online    │ 0%       │ 65.0mb   │ root     │ disabled │
+│ 10 │ employee-portal-node      │ default     │ 1.0.0   │ fork    │ 433709   │ 6D     │ 72   │ online    │ 0%       │ 111.7mb  │ root     │ disabled │
+│ 21 │ employee_portal_nextjs    │ default     │ 15.3.4  │ fork    │ 698676   │ 0s     │ 155  │ online    │ 0%       │ 16.9mb   │ root     │ disabled │
+│ 2  │ index                     │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 3  │ index                     │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 8  │ nextjs-app                │ default     │ 15.3.3  │ fork    │ 3109477  │ 2M     │ 45   │ online    │ 0%       │ 130.2mb  │ root     │ disabled │
+│ 5  │ ondc_frontend             │ default     │ N/A     │ fork    │ 2582942  │ 3M     │ 38   │ online    │ 0%       │ 72.1mb   │ root     │ disabled │
+│ 0  │ sms_api                   │ default     │ 1.0.0   │ fork    │ 2840739  │ 2M     │ 1    │ online    │ 0%       │ 76.4mb   │ root     │ disabled │
+│ 23 │ wordpresstextremover      │ default     │ N/A     │ fork    │ 439378   │ 6D     │ 4    │ online    │ 0%       │ 5.1gb    │ root     │ disabled │
+└────┴───────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2] Saving current process list...
+[PM2] Successfully saved in /root/.pm2/dump.pm2
+=== [2025-08-19 08:13:55] Deploy complete ===
+
+=== [2025-08-19 08:24:30] Starting deploy ===
+[deploy] APP_DIR=/var/www/html/employee_portal_nextjs/employee_portal_nextjs  BRANCH=main  PM2_ID=21  PM2_NAME=employee_portal_nextjs
+[deploy] Fetching latest code...
+From https://github.com/itteammobilogi/employee_portal_nextjs
+   1def656..7f4fdfe  main       -> origin/main
+[deploy] Resetting to origin/main...
+HEAD is now at 7f4fdfe changes
+[deploy] Installing dependencies (npm ci)...
+
+added 236 packages, and audited 237 packages in 6s
+
+28 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[deploy] Building app...
+
+> dashboard@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.4
+   - Environments: .env.production
+
+   Linting and checking validity of types ...
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2000ms
+   Collecting page data ...
+   Generating static pages (0/39) ...
+   Generating static pages (9/39) 
+   Generating static pages (19/39) 
+   Generating static pages (29/39) 
+ ✓ Generating static pages (39/39)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (pages)                                Size  First Load JS
+┌ ○ /                                       319 B        98.8 kB
+├   /_app                                     0 B        98.5 kB
+├ ○ /404                                    195 B        98.7 kB
+├ ○ /admin/attendance                     6.36 kB         105 kB
+├ ○ /admin/attendance/employee/[id]       10.9 kB         112 kB
+├ ○ /admin/dashboard (302 ms)              104 kB         213 kB
+├ ○ /admin/employees                      5.59 kB         104 kB
+├ ○ /admin/employees/salary               4.52 kB         103 kB
+├ ○ /admin/finance/dashboard              2.67 kB         101 kB
+├ ○ /admin/holiday                          285 B        98.8 kB
+├ ○ /admin/holiday/holiday (433 ms)       13.7 kB         112 kB
+├   └ css/72313199b7132b63.css              752 B
+├ ○ /admin/leaves/leave                   4.34 kB         103 kB
+├ ○ /admin/payroll                        4.13 kB         105 kB
+├ ○ /admin/payroll/payroll                  287 B        98.8 kB
+├ ƒ /api/hello                                0 B        98.5 kB
+├ ○ /employee/attendance                  5.29 kB         104 kB
+├ ○ /employee/changePassword                295 B        98.8 kB
+├ ○ /employee/dashboard                   16.6 kB         115 kB
+├ ○ /employee/directory                   1.18 kB         103 kB
+├ ○ /employee/expenses                    4.64 kB         122 kB
+├ ○ /employee/holidays                      287 B        98.8 kB
+├ ○ /employee/idCard                        288 B        98.8 kB
+├ ○ /employee/leaves                      5.04 kB         104 kB
+├ ○ /employee/payroll (440 ms)            6.24 kB         596 kB
+├ ○ /employee/performance                   287 B        98.8 kB
+├ ○ /employee/profile                      1.6 kB         104 kB
+├ ○ /finance/dashboard (439 ms)            161 kB         753 kB
+├ ○ /hr/dashboard                          5.3 kB         104 kB
+├ ○ /hr/employees                         4.04 kB         103 kB
+├ ○ /hr/leaves                            2.67 kB         101 kB
+├ ○ /login (440 ms)                       3.03 kB         137 kB
+├ ○ /logout                                 999 B        99.5 kB
+├ ○ /manager/dashboard                     5.1 kB         104 kB
+├ ○ /manager/employee/leave               4.92 kB         103 kB
+├ ○ /manager/employee/payroll             5.41 kB         140 kB
+├ ○ /manager/expense                      4.59 kB         122 kB
+├ ○ /manager/holiday                      2.67 kB         101 kB
+├ ○ /manager/leaves                         284 B        98.8 kB
+├ ○ /manager/reviews                      3.15 kB         104 kB
+└ ○ /manager/team                         5.87 kB         107 kB
++ First Load JS shared by all              107 kB
+  ├ chunks/framework-d33e0fe36067854f.js  57.7 kB
+  ├ chunks/main-2c8c0b1013a5befa.js       34.2 kB
+  └ other shared chunks (total)           14.8 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+[deploy] Restarting with PM2...
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [21](ids: [ '21' ])
+[PM2] [employee_portal_nextjs](21) ✓
+┌────┬───────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 9  │ -sosInternationalAPI      │ default     │ 1.0.0   │ fork    │ 4059715  │ 27D    │ 318  │ online    │ 0%       │ 78.0mb   │ root     │ disabled │
+│ 1  │ alakbar_node              │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 4  │ alakbar_ondc_node         │ default     │ 1.0.0   │ fork    │ 3096744  │ 2M     │ 25   │ online    │ 0%       │ 87.1mb   │ root     │ disabled │
+│ 12 │ bysuktowordpress          │ default     │ N/A     │ fork    │ 313415   │ 12D    │ 0    │ online    │ 0%       │ 65.0mb   │ root     │ disabled │
+│ 10 │ employee-portal-node      │ default     │ 1.0.0   │ fork    │ 433709   │ 6D     │ 72   │ online    │ 0%       │ 112.1mb  │ root     │ disabled │
+│ 21 │ employee_portal_nextjs    │ default     │ 15.3.4  │ fork    │ 699655   │ 0s     │ 158  │ online    │ 0%       │ 13.0mb   │ root     │ disabled │
+│ 2  │ index                     │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 3  │ index                     │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 8  │ nextjs-app                │ default     │ 15.3.3  │ fork    │ 3109477  │ 2M     │ 45   │ online    │ 0%       │ 130.3mb  │ root     │ disabled │
+│ 5  │ ondc_frontend             │ default     │ N/A     │ fork    │ 2582942  │ 3M     │ 38   │ online    │ 0%       │ 73.0mb   │ root     │ disabled │
+│ 0  │ sms_api                   │ default     │ 1.0.0   │ fork    │ 2840739  │ 2M     │ 1    │ online    │ 0%       │ 76.9mb   │ root     │ disabled │
+│ 23 │ wordpresstextremover      │ default     │ N/A     │ fork    │ 439378   │ 6D     │ 4    │ online    │ 0%       │ 5.1gb    │ root     │ disabled │
+└────┴───────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2] Saving current process list...
+[PM2] Successfully saved in /root/.pm2/dump.pm2
+=== [2025-08-19 08:24:53] Deploy complete ===
+
+=== [2025-08-19 08:25:23] Starting deploy ===
+[deploy] APP_DIR=/var/www/html/employee_portal_nextjs/employee_portal_nextjs  BRANCH=main  PM2_ID=21  PM2_NAME=employee_portal_nextjs
+[deploy] Fetching latest code...
+[deploy] Resetting to origin/main...
+HEAD is now at 7f4fdfe changes
+[deploy] Installing dependencies (npm ci)...
+
+added 236 packages, and audited 237 packages in 7s
+
+28 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[deploy] Building app...
+
+> dashboard@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.4
+   - Environments: .env.production
+
+   Linting and checking validity of types ...
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1000ms
+   Collecting page data ...
+   Generating static pages (0/39) ...
+   Generating static pages (9/39) 
+   Generating static pages (19/39) 
+   Generating static pages (29/39) 
+ ✓ Generating static pages (39/39)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (pages)                                Size  First Load JS
+┌ ○ /                                       319 B        98.8 kB
+├   /_app                                     0 B        98.5 kB
+├ ○ /404                                    195 B        98.7 kB
+├ ○ /admin/attendance                     6.36 kB         105 kB
+├ ○ /admin/attendance/employee/[id]       10.9 kB         112 kB
+├ ○ /admin/dashboard                       104 kB         213 kB
+├ ○ /admin/employees                      5.59 kB         104 kB
+├ ○ /admin/employees/salary               4.52 kB         103 kB
+├ ○ /admin/finance/dashboard              2.67 kB         101 kB
+├ ○ /admin/holiday                          285 B        98.8 kB
+├ ○ /admin/holiday/holiday (432 ms)       13.7 kB         112 kB
+├   └ css/72313199b7132b63.css              752 B
+├ ○ /admin/leaves/leave                   4.34 kB         103 kB
+├ ○ /admin/payroll                        4.13 kB         105 kB
+├ ○ /admin/payroll/payroll                  287 B        98.8 kB
+├ ƒ /api/hello                                0 B        98.5 kB
+├ ○ /employee/attendance                  5.29 kB         104 kB
+├ ○ /employee/changePassword                295 B        98.8 kB
+├ ○ /employee/dashboard                   16.6 kB         115 kB
+├ ○ /employee/directory                   1.18 kB         103 kB
+├ ○ /employee/expenses                    4.64 kB         122 kB
+├ ○ /employee/holidays                      287 B        98.8 kB
+├ ○ /employee/idCard                        288 B        98.8 kB
+├ ○ /employee/leaves                      5.04 kB         104 kB
+├ ○ /employee/payroll (438 ms)            6.24 kB         596 kB
+├ ○ /employee/performance                   287 B        98.8 kB
+├ ○ /employee/profile                      1.6 kB         104 kB
+├ ○ /finance/dashboard (438 ms)            161 kB         753 kB
+├ ○ /hr/dashboard                          5.3 kB         104 kB
+├ ○ /hr/employees                         4.04 kB         103 kB
+├ ○ /hr/leaves                            2.67 kB         101 kB
+├ ○ /login (438 ms)                       3.03 kB         137 kB
+├ ○ /logout                                 999 B        99.5 kB
+├ ○ /manager/dashboard                     5.1 kB         104 kB
+├ ○ /manager/employee/leave               4.92 kB         103 kB
+├ ○ /manager/employee/payroll             5.41 kB         140 kB
+├ ○ /manager/expense                      4.59 kB         122 kB
+├ ○ /manager/holiday                      2.67 kB         101 kB
+├ ○ /manager/leaves                         284 B        98.8 kB
+├ ○ /manager/reviews                      3.15 kB         104 kB
+└ ○ /manager/team                         5.87 kB         107 kB
++ First Load JS shared by all              107 kB
+  ├ chunks/framework-d33e0fe36067854f.js  57.7 kB
+  ├ chunks/main-2c8c0b1013a5befa.js       34.2 kB
+  └ other shared chunks (total)           14.8 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+[deploy] Restarting with PM2...
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [21](ids: [ '21' ])
+[PM2] [employee_portal_nextjs](21) ✓
+┌────┬───────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 9  │ -sosInternationalAPI      │ default     │ 1.0.0   │ fork    │ 4059715  │ 27D    │ 318  │ online    │ 0%       │ 77.4mb   │ root     │ disabled │
+│ 1  │ alakbar_node              │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 4  │ alakbar_ondc_node         │ default     │ 1.0.0   │ fork    │ 3096744  │ 2M     │ 25   │ online    │ 0%       │ 86.9mb   │ root     │ disabled │
+│ 12 │ bysuktowordpress          │ default     │ N/A     │ fork    │ 313415   │ 12D    │ 0    │ online    │ 0%       │ 65.0mb   │ root     │ disabled │
+│ 10 │ employee-portal-node      │ default     │ 1.0.0   │ fork    │ 433709   │ 6D     │ 72   │ online    │ 0%       │ 112.5mb  │ root     │ disabled │
+│ 21 │ employee_portal_nextjs    │ default     │ 15.3.4  │ fork    │ 700108   │ 0s     │ 160  │ online    │ 0%       │ 17.0mb   │ root     │ disabled │
+│ 2  │ index                     │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 3  │ index                     │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ root     │ disabled │
+│ 8  │ nextjs-app                │ default     │ 15.3.3  │ fork    │ 3109477  │ 2M     │ 45   │ online    │ 0%       │ 130.5mb  │ root     │ disabled │
+│ 5  │ ondc_frontend             │ default     │ N/A     │ fork    │ 2582942  │ 3M     │ 38   │ online    │ 0%       │ 72.6mb   │ root     │ disabled │
+│ 0  │ sms_api                   │ default     │ 1.0.0   │ fork    │ 2840739  │ 2M     │ 1    │ online    │ 0%       │ 76.5mb   │ root     │ disabled │
+│ 23 │ wordpresstextremover      │ default     │ N/A     │ fork    │ 439378   │ 6D     │ 4    │ online    │ 0%       │ 5.1gb    │ root     │ disabled │
+└────┴───────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2] Saving current process list...
+[PM2] Successfully saved in /root/.pm2/dump.pm2
+=== [2025-08-19 08:25:46] Deploy complete ===
